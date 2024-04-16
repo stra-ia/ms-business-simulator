@@ -5,6 +5,14 @@ name = "pypi"
 
 [packages]
 fastapi = "*"
+google-cloud-speech = "*"
+google-cloud-aiplatform = "*"
+google-api-python-client = "*"
+google-cloud = "*"
+google = "*"
+google-api-core = "*"
+ipython = "*"
+install = "*"
 
 [dev-packages]
 
