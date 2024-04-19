@@ -13,6 +13,9 @@ google = "*"
 google-api-core = "*"
 ipython = "*"
 install = "*"
+google-cloud-texttospeech = "*"
+markdown = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
