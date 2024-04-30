@@ -27,12 +27,10 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     history: List[ChatMessage]
-    salesObjects: List[SalesObject]
 
 class VoiceRequest(BaseModel):
     file: UploadFile
     history: List[ChatMessage]
-    salesObjects: List[SalesObject]
 
 # transcribe_audio(file: UploadFile = File(...)):
 #     audio_content = await file.read()
@@ -92,16 +90,17 @@ async def send_message_voice(file: UploadFile = File(...), history: str = Form(.
         history_obj = json.loads(history)
         request: ChatRequest = ChatRequest(message=voice_message['transcription'], history=history_obj)
 
-        message = chatbot_services.chat(request)['message']
+        chatbot = chatbot_services.chat(request)['message']
 
         # Convert the message to voice
-        message_to_voice = markdown_to_text(message)
+        message_to_voice = markdown_to_text(chatbot.message)
         voice = voicechat_services.text_to_speech(message_to_voice)
         # Codifica el audio en base64
         audio_base64 = base64.b64encode(voice).decode('utf-8')
 
         return {
-            "message": message,
+            "message": chatbot.message,
+            "clientBrief": chatbot.clientBrief,
             "voice_message": voice_message['transcription'],
             "voice": audio_base64
         }
