@@ -2,9 +2,6 @@ import subprocess
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers.v1 import chatbot_router, voicechat_router, prediction_router
-
-
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -43,8 +40,18 @@ try:
 except ImportError:
     install("beautifulsoup4")
     from google.cloud import speech
+try:
+    import pandas
+except ImportError:
+    install("pandas")
+    import pandas
+try:
+    import tensorflow
+except ImportError:
+    install("tensorflow")
+    import tensorflow
 
-
+from src.routers.v1 import chatbot_router, voicechat_router, prediction_router
 import vertexai
 
 
