@@ -16,7 +16,6 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     message: str
     history: List[ChatMessage]
-    salesObjects: List[SalesObject]
 
 class VoiceRequest(BaseModel):
     file: UploadFile

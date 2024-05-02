@@ -39,7 +39,6 @@ def chat(request: ChatRequest, stream=False):
             content = Content(parts=[part], role="model")
             history.append(content)
 
-
         chat = model.start_chat(history=history, response_validation=False)
         responses = chat.send_message(prompt, stream=stream)
 

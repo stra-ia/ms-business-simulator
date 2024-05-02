@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Form, File, UploadFile, HTTPException
 from src.services import chatbot_services
 from vertexai.generative_models import GenerativeModel, ChatSession
-from typing import List
 from src.services import voicechat_services
 import json
 from src.services import voicechat_services
@@ -31,7 +30,7 @@ async def send_message_voice(file: UploadFile = File(...), history: str = Form(.
         history_obj = json.loads(history)
         request: ChatRequest = ChatRequest(message=voice_message['transcription'], history=history_obj)
 
-        chatbot = chatbot_services.chat(request)['message']
+        chatbot = chatbot_services.chat(request)
 
         # Convert the message to voice
         message_to_voice = markdown_to_text(chatbot.message)
