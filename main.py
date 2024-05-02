@@ -2,8 +2,9 @@ import subprocess
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers.v1 import chatbot_router, voicechat_router
-import vertexai
+from src.routers.v1 import chatbot_router, voicechat_router, prediction_router
+
+
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -27,6 +28,12 @@ except ImportError:
     import vertexai
 
 try:
+    import multipart
+except ImportError:
+    install("python-multipart")
+    import multipart
+
+try:
     import markdown
 except ImportError:
     install("markdown")
@@ -36,6 +43,9 @@ try:
 except ImportError:
     install("beautifulsoup4")
     from google.cloud import speech
+
+
+import vertexai
 
 
 app = FastAPI()
@@ -55,3 +65,4 @@ def startup_event():
 
 app.include_router(chatbot_router.router, prefix="/chatbot", tags=["chatbot"])
 app.include_router(voicechat_router.router, prefix="/voicechat", tags=["voicechat"])
+app.include_router(prediction_router.router, prefix="/prediction", tags=["prediction"])
