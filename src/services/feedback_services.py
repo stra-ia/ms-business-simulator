@@ -1,7 +1,8 @@
 import google.generativeai as genai
 from fastapi.responses import JSONResponse
+from vertexai.generative_models import GenerativeModel, ChatSession, Content, Part, Tool, FunctionDeclaration
 
-genai.configure(api_key="AIzaSyAeR3HN4a6DjDlBSSUBJtMxatNhja3Ns-8")
+genai.configure(api_key="AIzaSyCM5ekAWoggT5PtyOMu-bMLuJrauQgPO8M")
 
 generation_config = {
   "temperature": 1,
@@ -9,25 +10,6 @@ generation_config = {
   "top_k": 1,
   "max_output_tokens": 2048,
 }
-
-safety_settings = [
-  {
-    "category": "HARM_CATEGORY_HARASSMENT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_HATE_SPEECH",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-  {
-    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-  },
-]
 
 def generate_feedback(
     user_creative_body, 
@@ -40,9 +22,10 @@ def generate_feedback(
     user_input_impressions_over_spend,
     brief,
     ):
-  model = genai.GenerativeModel(model_name="gemini-1.0-pro",
-                                generation_config=generation_config,
-                                safety_settings=safety_settings)
+  model = GenerativeModel(
+      model_name="gemini-1.0-pro",
+      generation_config=generation_config
+  )
   prompt_parts = [
     f"""You are a Digital Marketing and Copywriting expert. Retrieve all your knowledge on the topic in order to answer the following.
         You will now receive user creative input for the different parts of the Facebook or Meta ad campaign:
