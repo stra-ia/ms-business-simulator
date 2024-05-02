@@ -2,7 +2,7 @@ import subprocess
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routers.v1 import chatbot_router, voicechat_router, prediction_router
+from src.routers.v1 import chatbot_router, voicechat_router, prediction_router, feedback_router
 
 
 
@@ -66,3 +66,4 @@ def startup_event():
 app.include_router(chatbot_router.router, prefix="/chatbot", tags=["chatbot"])
 app.include_router(voicechat_router.router, prefix="/voicechat", tags=["voicechat"])
 app.include_router(prediction_router.router, prefix="/prediction", tags=["prediction"])
+app.include_router(feedback_router.router, prefix="/feedback", tags=["feedback_router"])
