@@ -16,6 +16,12 @@ install = "*"
 google-cloud-texttospeech = "*"
 markdown = "*"
 beautifulsoup4 = "*"
+vertexai = "*"
+python-multipart = "*"
+pandas = "*"
+transformers = "*"
+torch = "*"
+tensorflow = "*"
 
 [dev-packages]
 
