@@ -51,7 +51,7 @@ except ImportError:
     install("tensorflow")
     import tensorflow
 
-from src.routers.v1 import chatbot_router, voicechat_router, prediction_router
+from src.routers.v1 import chatbot_router, voicechat_router, prediction_router, feedback_router
 import vertexai
 
 
@@ -65,7 +65,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.on_event("startup")
 def startup_event():
     vertexai.init(project="proyectos-internos-lapzo", location="us-central1")
@@ -73,3 +72,4 @@ def startup_event():
 app.include_router(chatbot_router.router, prefix="/chatbot", tags=["chatbot"])
 app.include_router(voicechat_router.router, prefix="/voicechat", tags=["voicechat"])
 app.include_router(prediction_router.router, prefix="/prediction", tags=["prediction"])
+app.include_router(feedback_router.router, prefix="/feedback", tags=["feedback_router"])
