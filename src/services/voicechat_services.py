@@ -19,7 +19,7 @@ def transcribe_audio_speech(audio_content):
     credentials = service_account.Credentials.from_service_account_file(f'{os.getcwd()}/google-config.json')
 
     config = speech.RecognitionConfig(
-        language_code="es",
+        language_code="en",
     )
 
     audio = speech.RecognitionAudio(
@@ -108,9 +108,9 @@ def text_to_speech_bad(text: str):
     # synthesis_input = texttospeech.SynthesisInput(ssml=ssml)
 
     voice = texttospeech.VoiceSelectionParams(
-        language_code="es-US",
+        language_code="en-US",
         # ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-        name= "es-US-Studio-B"
+        name= "en-US-Studio-O"
     )
 
     audio_config = texttospeech.AudioConfig(
