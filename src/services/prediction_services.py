@@ -55,6 +55,7 @@ def calculate_categorical_score(prediction):
 
 
 def calculate_user_scores(user_creative_body, user_headline, user_link_description, days_duration, spend_by_day):
+  print('\n\n\nhereeeeeee\n\n\n')
   embedded_body_string, embedded_headline_string, embedded_link_description_string = prepare_user_input(
     user_creative_body,
     user_headline,

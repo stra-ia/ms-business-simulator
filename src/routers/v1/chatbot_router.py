@@ -19,7 +19,7 @@ async def send_message(request: ChatRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/voice")
-async def send_message_voice(file: UploadFile = File(...), history: str = Form(...)):
+async def send_message_voice(file: UploadFile = File(...), history: str = Form(...), type: str = 'sales'):
     try: 
         # print(message)
         # Transcribe the audio message
@@ -28,19 +28,19 @@ async def send_message_voice(file: UploadFile = File(...), history: str = Form(.
 
         # Send the message to the chatbot
         history_obj = json.loads(history)
-        request: ChatRequest = ChatRequest(message=voice_message['transcription'], history=history_obj)
+        request: ChatRequest = ChatRequest(message=voice_message['transcription'], history=history_obj, type=type)
 
         chatbot = chatbot_services.chat(request)
 
         # Convert the message to voice
-        message_to_voice = markdown_to_text(chatbot.message)
+        message_to_voice = markdown_to_text(chatbot['message'])
         voice = voicechat_services.text_to_speech(message_to_voice)
         # Codifica el audio en base64
         audio_base64 = base64.b64encode(voice).decode('utf-8')
 
         return {
-            "message": chatbot.message,
-            "clientBrief": chatbot.clientBrief,
+            "message": chatbot["message"],
+            "clientBrief": chatbot["clientBrief"],
             "voice_message": voice_message['transcription'],
             "voice": audio_base64
         }

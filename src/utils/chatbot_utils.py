@@ -35,8 +35,40 @@ create_sales_client_func = FunctionDeclaration(
     }
 )
 
+marketing_prediction_func = FunctionDeclaration(
+    name="marketing_prediction",
+    description="""Calculates predictive scores for digital marketing campaigns based on user inputs and simulation parameters. This function integrates several factors including the creative content, campaign duration, and budget, to estimate the potential success of a marketing campaign on platforms like Facebook or Instagram. The calculated scores aim to provide insights into the effectiveness of different marketing strategies and tactics, helping users to make informed decisions about campaign adjustments and optimizations.""",
+    parameters={
+        "type": "object",
+        "properties": {
+            "user_creative_body": {
+                "type": "string",
+                "description": """The main textual content of the advertisement which plays a critical role in engaging the target audience. This text is crucial for capturing attention and conveying the key message of the campaign."""
+            },
+            "user_headline": {
+                "type": "string",
+                "description": """The headline of the advertisement that appears prominently. It is designed to quickly grab the viewer's attention and summarize the central appeal of the campaign."""
+            },
+            "user_link_description": {
+                "type": "string",
+                "description": """A brief description that accompanies the link within the advertisement, providing additional context or information about the landing page to encourage clicks."""
+            },
+            "days_duration": {
+                "type": "integer",
+                "description": """The total duration, in days, that the campaign will run. This affects the exposure and frequency of interactions with the target audience."""
+            },
+            "spend_by_day": {
+                "type": "number",
+                "description": """The daily budget allocated to the campaign. This parameter influences the reach and impact of the advertising effort on a day-to-day basis."""
+            }
+        },
+        "required": ["user_creative_body", "user_headline", "user_link_description", "days_duration", "spend_by_day"]
+    }
+)
+
+
 functions_tools = Tool(
-    function_declarations=[create_sales_client_func]
+    function_declarations=[create_sales_client_func, marketing_prediction_func]
 )
 
 def convert_history(history):
